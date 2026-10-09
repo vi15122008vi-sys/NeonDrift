@@ -1,5 +1,5 @@
 /* =========================================================
-   50 МАШИН · 5 КЛАССОВ · кастомизация (цвет/неон/диски)
+   50 МАШИН · 5 КЛАССОВ · кастомизация
    ========================================================= */
 
 const CAR_CLASSES = {
@@ -10,13 +10,10 @@ const CAR_CLASSES = {
     S: { name:'Класс S', color:'#f43f5e' }
 };
 
-// Генератор: чтобы не писать 50 объектов руками, но каждый уникален
 function makeCar(i, cls, name, price, body, neon, stats, opts={}) {
     return {
         id: 'car_' + i,
-        name,
-        cls,
-        price,
+        name, cls, price,
         unlocked: price === 0,
         bodyColor: body,
         neonColor: neon,
@@ -33,19 +30,18 @@ function makeCar(i, cls, name, price, body, neon, stats, opts={}) {
 }
 
 const CARS = [
-    /* ---------- КЛАСС D — 10 (стартовые) ---------- */
-    makeCar(1,'D','CITY HATCH',0,'#64748b','#94a3b8',{speed:4,handling:6,nitro:4},{desc:'Городской хэтчбек. Скромно, но верно.'}),
-    makeCar(2,'D','SEDAN LX',0,'#334155','#38bdf8',{speed:5,handling:6,nitro:4},{desc:'Седан. Начало пути.'}),
-    makeCar(3,'D','MINI GO',0,'#dc2626','#f87171',{speed:4,handling:7,nitro:4},{desc:'Компактный, юркий. Третий бесплатный.'}),
-    makeCar(4,'D','URBAN 40',500,'#0ea5e9','#22d3ee',{speed:5,handling:6,nitro:5},{desc:'Городской седан.'}),
-    makeCar(5,'D','PICKUP',700,'#a16207','#fbbf24',{speed:4,handling:5,nitro:6},{desc:'Пикап. Тяжёлый, но нитро запасает.'}),
-    makeCar(6,'D','VAN CARGO',900,'#78716c','#a8a29e',{speed:3,handling:5,nitro:7},{desc:'Фургон. Смешно, но не сдаётся.'}),
-    makeCar(7,'D','WAGON T',1100,'#14532d','#4ade80',{speed:5,handling:6,nitro:5},{desc:'Универсал.'}),
-    makeCar(8,'D','COUPE 92',1400,'#7c2d12','#fb923c',{speed:6,handling:6,nitro:5},{desc:'Купе 92-го года.'}),
-    makeCar(9,'D','OFFROAD JR',1700,'#365314','#84cc16',{speed:5,handling:7,nitro:5},{desc:'Мини-внедорожник.'}),
-    makeCar(10,'D','TURBO KIT',2100,'#4c1d95','#a78bfa',{speed:6,handling:6,nitro:6},{desc:'Первый турбо-кит.'}),
-
-    /* ---------- КЛАСС C — 10 ---------- */
+    /* КЛАСС D — 10 */
+    makeCar(1,'D','CITY HATCH',0,'#64748b','#94a3b8',{speed:4,handling:6,nitro:4},{desc:'Городской хэтчбек.'}),
+    makeCar(2,'D','SEDAN LX',0,'#334155','#38bdf8',{speed:5,handling:6,nitro:4},{desc:'Классический седан.'}),
+    makeCar(3,'D','MINI GO',0,'#dc2626','#f87171',{speed:4,handling:7,nitro:4},{desc:'Компактный и юркий.'}),
+    makeCar(4,'D','URBAN 40',500,'#0ea5e9','#22d3ee',{speed:5,handling:6,nitro:5}),
+    makeCar(5,'D','PICKUP',700,'#a16207','#fbbf24',{speed:4,handling:5,nitro:6}),
+    makeCar(6,'D','VAN CARGO',900,'#78716c','#a8a29e',{speed:3,handling:5,nitro:7}),
+    makeCar(7,'D','WAGON T',1100,'#14532d','#4ade80',{speed:5,handling:6,nitro:5}),
+    makeCar(8,'D','COUPE 92',1400,'#7c2d12','#fb923c',{speed:6,handling:6,nitro:5}),
+    makeCar(9,'D','OFFROAD JR',1700,'#365314','#84cc16',{speed:5,handling:7,nitro:5}),
+    makeCar(10,'D','TURBO KIT',2100,'#4c1d95','#a78bfa',{speed:6,handling:6,nitro:6}),
+    /* КЛАСС C — 10 */
     makeCar(11,'C','SPORT 200',2800,'#059669','#34d399',{speed:6,handling:7,nitro:6}),
     makeCar(12,'C','RX COUPE',3500,'#be123c','#fb7185',{speed:7,handling:6,nitro:6}),
     makeCar(13,'C','STREET GT',4300,'#1d4ed8','#60a5fa',{speed:7,handling:7,nitro:6}),
@@ -56,8 +52,7 @@ const CARS = [
     makeCar(18,'C','AWD PRO',9600,'#166534','#22c55e',{speed:7,handling:8,nitro:7}),
     makeCar(19,'C','TURBO S',11000,'#991b1b','#ef4444',{speed:8,handling:7,nitro:7}),
     makeCar(20,'C','V6 LEGEND',12500,'#075985','#38bdf8',{speed:8,handling:7,nitro:7}),
-
-    /* ---------- КЛАСС B — 10 ---------- */
+    /* КЛАСС B — 10 */
     makeCar(21,'B','VYPER GT',14000,'#e11d2b','#ff3355',{speed:8,handling:8,nitro:7},{desc:'Классический спорткар.'}),
     makeCar(22,'B','MUSCLE 440',15500,'#f59e0b','#fbbf24',{speed:8,handling:6,nitro:8}),
     makeCar(23,'B','EURO R',17000,'#1e40af','#3b82f6',{speed:8,handling:8,nitro:7}),
@@ -68,8 +63,7 @@ const CARS = [
     makeCar(28,'B','SUPER TOUR',29000,'#6d28d9','#a78bfa',{speed:9,handling:8,nitro:8}),
     makeCar(29,'B','ROADSTER 2',32000,'#be185d','#f472b6',{speed:8,handling:9,nitro:8}),
     makeCar(30,'B','GTR STAGE 3',36000,'#0f172a','#22d3ee',{speed:9,handling:9,nitro:8}),
-
-    /* ---------- КЛАСС A — 10 ---------- */
+    /* КЛАСС A — 10 */
     makeCar(31,'A','AERO X1',42000,'#06b6d4','#00e5ff',{speed:9,handling:9,nitro:8}),
     makeCar(32,'A','PHANTOM GT',48000,'#4c1d95','#c026d3',{speed:10,handling:8,nitro:9}),
     makeCar(33,'A','STORM R',55000,'#0891b2','#67e8f9',{speed:10,handling:9,nitro:8}),
@@ -80,10 +74,9 @@ const CARS = [
     makeCar(38,'A','APEX 1',105000,'#065f46','#34d399',{speed:10,handling:10,nitro:9}),
     makeCar(39,'A','REDLINE 8',118000,'#dc2626','#f87171',{speed:10,handling:10,nitro:10}),
     makeCar(40,'A','NIGHTMARE',132000,'#1e1b4b','#a855f7',{speed:10,handling:10,nitro:10}),
-
-    /* ---------- КЛАСС S — 10 ---------- */
+    /* КЛАСС S — 10 */
     makeCar(41,'S','PHANTOM ZR',150000,'#a855f7','#c026d3',{speed:10,handling:10,nitro:10}),
-    makeCar(42,'S','VOLT E-7',165000,'#22c55e','#4ade80',{speed:9,handling:10,nitro:10},{desc:'Электро. Нитро бесконечное.'}),
+    makeCar(42,'S','VOLT E-7',165000,'#22c55e','#4ade80',{speed:9,handling:10,nitro:10},{desc:'Электро. Бесконечное нитро.'}),
     makeCar(43,'S','HYPER ONE',180000,'#0ea5e9','#22d3ee',{speed:10,handling:10,nitro:10}),
     makeCar(44,'S','VIRTUAL X',195000,'#7c3aed','#a78bfa',{speed:10,handling:10,nitro:10}),
     makeCar(45,'S','GODSPEED',210000,'#fbbf24','#fde047',{speed:10,handling:10,nitro:10}),
@@ -94,7 +87,6 @@ const CARS = [
     makeCar(50,'S','4D ULTIMATE',300000,'#ffffff','#00e5ff',{speed:10,handling:10,nitro:10},{desc:'Финальный. Легенда.'})
 ];
 
-/* ------- Кастомизация (палитры) ------- */
 const COLOR_PALETTE = [
     '#e11d2b','#f59e0b','#fbbf24','#22c55e','#06b6d4',
     '#3b82f6','#8b5cf6','#ec4899','#a855f7','#0ea5e9',
@@ -104,9 +96,8 @@ const NEON_PALETTE = [
     '#00e5ff','#ff3355','#a855f7','#22c55e','#fbbf24',
     '#ec4899','#4ade80','#22d3ee','#f97316','#c026d3'
 ];
-const WHEEL_STYLES = 5; // 0..4, рисуем по-разному
+const WHEEL_STYLES = 5;
 
-/* -------- Пользовательские настройки машин (сохраняются) -------- */
 function loadCustom() {
     try { return JSON.parse(localStorage.getItem('nd4d_custom') || '{}'); }
     catch { return {}; }
@@ -123,93 +114,104 @@ function applyCustomToCars() {
     }
 }
 
-/* ===========================
-   ОТРИСОВКА МАШИНЫ
-   =========================== */
 function drawCarShape(ctx, car, width, height, opts = {}) {
     const w = width, h = height;
     const hw = w/2, hh = h/2;
     const { bodyColor, accentColor, neonColor, cabinW, cabinH, spoiler, wheelStyle } = car;
     const headlightsOn = opts.headlights !== false;
+    const opacity = opts.opacity ?? 1;
 
-    // Неоновое свечение снизу
+    const noseW = w * 0.62;
+    const tailW = w * 0.90;
+
+    ctx.globalAlpha = opacity;
+
     ctx.save();
     ctx.shadowColor = neonColor;
-    ctx.shadowBlur = w * 0.35;
-
-    // Кузов (трапеция: узкий нос, широкий зад)
-    const noseW = w * 0.62;
-    const tailW = w * 0.92;
+    ctx.shadowBlur = w * 0.5;
 
     ctx.beginPath();
     ctx.moveTo(-noseW/2, -hh);
-    ctx.lineTo( noseW/2, -hh);
-    ctx.lineTo( tailW/2,  hh*0.75);
-    ctx.quadraticCurveTo( tailW/2, hh, tailW/2*0.85, hh);
-    ctx.lineTo(-tailW/2*0.85, hh);
-    ctx.quadraticCurveTo(-tailW/2, hh, -tailW/2, hh*0.75);
+    ctx.quadraticCurveTo(-noseW/2*0.55, -hh*1.05, 0, -hh*1.05);
+    ctx.quadraticCurveTo( noseW/2*0.55, -hh*1.05, noseW/2, -hh);
+    ctx.lineTo( tailW/2, hh*0.72);
+    ctx.quadraticCurveTo( tailW/2, hh, tailW/2*0.82, hh);
+    ctx.lineTo(-tailW/2*0.82, hh);
+    ctx.quadraticCurveTo(-tailW/2, hh, -tailW/2, hh*0.72);
     ctx.closePath();
 
     const bg = ctx.createLinearGradient(-hw, 0, hw, 0);
-    bg.addColorStop(0, shade(bodyColor, -0.35));
+    bg.addColorStop(0, shade(bodyColor, -0.5));
+    bg.addColorStop(0.2, shade(bodyColor, -0.15));
     bg.addColorStop(0.5, bodyColor);
-    bg.addColorStop(1, shade(bodyColor, -0.35));
+    bg.addColorStop(0.8, shade(bodyColor, -0.15));
+    bg.addColorStop(1, shade(bodyColor, -0.5));
     ctx.fillStyle = bg;
+    ctx.fill();
+
+    const vg = ctx.createLinearGradient(0, -hh, 0, hh);
+    vg.addColorStop(0, 'rgba(255,255,255,0)');
+    vg.addColorStop(0.5, 'rgba(255,255,255,0)');
+    vg.addColorStop(1, 'rgba(0,0,0,0.35)');
+    ctx.fillStyle = vg;
     ctx.fill();
 
     ctx.shadowBlur = 0;
     ctx.strokeStyle = accentColor;
-    ctx.lineWidth = Math.max(1.2, w * 0.02);
+    ctx.lineWidth = Math.max(1.2, w * 0.022);
     ctx.stroke();
     ctx.restore();
 
-    // Блик на капоте
-    const shine = ctx.createLinearGradient(0, -hh, 0, hh);
-    shine.addColorStop(0, 'rgba(255,255,255,0.35)');
-    shine.addColorStop(0.35, 'rgba(255,255,255,0.05)');
-    shine.addColorStop(1, 'rgba(0,0,0,0.25)');
+    ctx.save();
+    const shine = ctx.createLinearGradient(0, -hh, 0, hh*0.3);
+    shine.addColorStop(0, 'rgba(255,255,255,0.5)');
+    shine.addColorStop(0.4, 'rgba(255,255,255,0.1)');
+    shine.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = shine;
     ctx.beginPath();
-    ctx.moveTo(-noseW/2*0.7, -hh*0.95);
-    ctx.lineTo( noseW/2*0.7, -hh*0.95);
-    ctx.lineTo( tailW/2*0.75, hh*0.7);
-    ctx.lineTo(-tailW/2*0.75, hh*0.7);
+    ctx.moveTo(-noseW/2*0.7, -hh*0.9);
+    ctx.lineTo( noseW/2*0.7, -hh*0.9);
+    ctx.lineTo( tailW/2*0.7, 0);
+    ctx.lineTo(-tailW/2*0.7, 0);
     ctx.closePath();
     ctx.fill();
+    ctx.restore();
 
-    // Капотные линии
-    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
-    ctx.lineWidth = Math.max(1, w*0.012);
-    ctx.beginPath();
-    ctx.moveTo(-w*0.12, -hh+h*0.02); ctx.lineTo(-w*0.14, -hh+h*0.20);
-    ctx.moveTo( w*0.12, -hh+h*0.02); ctx.lineTo( w*0.14, -hh+h*0.20);
-    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fillRect(-w*0.055, -hh*0.9, w*0.035, h*0.28);
+    ctx.fillRect( w*0.02,  -hh*0.9, w*0.035, h*0.28);
 
-    // Лобовое стекло
-    const wsY = -hh + h*0.26;
-    const wsH = h*0.14;
+    const wsY = -hh + h*0.28;
+    const wsH = h*0.13;
     const wsW = cabinW * w * 0.95;
-    ctx.fillStyle = 'rgba(20,30,50,0.92)';
     ctx.beginPath();
     ctx.moveTo(-wsW/2*0.85, wsY+wsH);
     ctx.lineTo( wsW/2*0.85, wsY+wsH);
     ctx.lineTo( wsW/2,       wsY);
     ctx.lineTo(-wsW/2,       wsY);
     ctx.closePath();
+    const wsGrad = ctx.createLinearGradient(0, wsY, 0, wsY+wsH);
+    wsGrad.addColorStop(0, 'rgba(200,240,255,0.7)');
+    wsGrad.addColorStop(0.3, 'rgba(80,130,200,0.85)');
+    wsGrad.addColorStop(1, 'rgba(10,20,40,0.95)');
+    ctx.fillStyle = wsGrad;
     ctx.fill();
-    ctx.fillStyle = 'rgba(120,200,255,0.35)';
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
     ctx.beginPath();
-    ctx.moveTo(-wsW/2*0.6, wsY+wsH*0.9);
-    ctx.lineTo( wsW/2*0.6, wsY+wsH*0.9);
-    ctx.lineTo( wsW/2*0.3, wsY+wsH*0.15);
+    ctx.moveTo(-wsW/2*0.7, wsY+wsH*0.85);
+    ctx.lineTo( wsW/2*0.2, wsY+wsH*0.85);
+    ctx.lineTo( wsW/2*0.4, wsY+wsH*0.15);
     ctx.lineTo(-wsW/2*0.5, wsY+wsH*0.15);
     ctx.closePath();
     ctx.fill();
 
-    // Крыша
     const roofY = wsY + wsH;
-    const roofH = cabinH * h * 0.9;
-    ctx.fillStyle = shade(bodyColor, -0.15);
+    const roofH = cabinH * h * 0.85;
+    const roofGrad = ctx.createLinearGradient(-w/2, 0, w/2, 0);
+    roofGrad.addColorStop(0, shade(bodyColor, -0.35));
+    roofGrad.addColorStop(0.5, shade(bodyColor, -0.1));
+    roofGrad.addColorStop(1, shade(bodyColor, -0.35));
+    ctx.fillStyle = roofGrad;
     ctx.beginPath();
     ctx.moveTo(-cabinW*w/2*0.95, roofY);
     ctx.lineTo( cabinW*w/2*0.95, roofY);
@@ -217,14 +219,16 @@ function drawCarShape(ctx, car, width, height, opts = {}) {
     ctx.lineTo(-cabinW*w/2,       roofY + roofH);
     ctx.closePath();
     ctx.fill();
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    ctx.lineWidth = Math.max(1, w*0.008);
+    ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+    ctx.lineWidth = Math.max(1, w*0.01);
     ctx.stroke();
 
-    // Заднее стекло
     const rsY = roofY + roofH;
-    const rsH = h*0.09;
-    ctx.fillStyle = 'rgba(20,30,50,0.9)';
+    const rsH = h*0.08;
+    const rsGrad = ctx.createLinearGradient(0, rsY, 0, rsY+rsH);
+    rsGrad.addColorStop(0, 'rgba(10,20,40,0.95)');
+    rsGrad.addColorStop(1, 'rgba(80,130,200,0.7)');
+    ctx.fillStyle = rsGrad;
     ctx.beginPath();
     ctx.moveTo(-cabinW*w/2, rsY);
     ctx.lineTo( cabinW*w/2, rsY);
@@ -233,109 +237,152 @@ function drawCarShape(ctx, car, width, height, opts = {}) {
     ctx.closePath();
     ctx.fill();
 
-    // Полосы
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
-    ctx.fillRect(-w*0.02, -hh+h*0.03, w*0.012, h*0.22);
-    ctx.fillRect( w*0.02, -hh+h*0.03, w*0.012, h*0.22);
-
-    // Фары
     if (headlightsOn) {
-        const headY = -hh + h*0.02;
-        const headW = w*0.15;
+        const headY = -hh*0.98;
+        const headW = w*0.18;
         const headH = h*0.05;
         ctx.save();
         ctx.shadowColor = '#fff8c0';
-        ctx.shadowBlur = w*0.25;
-        ctx.fillStyle = '#fff9d6';
-        roundRect(ctx, -noseW/2 + w*0.03, headY, headW, headH, 2); ctx.fill();
-        roundRect(ctx,  noseW/2 - w*0.03 - headW, headY, headW, headH, 2); ctx.fill();
+        ctx.shadowBlur = w*0.4;
+        const hg = ctx.createRadialGradient(0,headY,0,0,headY,headW);
+        hg.addColorStop(0, '#ffffff');
+        hg.addColorStop(1, '#fff3a0');
+        ctx.fillStyle = hg;
+        roundRect(ctx, -noseW/2 + w*0.03, headY, headW, headH, 3); ctx.fill();
+        roundRect(ctx,  noseW/2 - w*0.03 - headW, headY, headW, headH, 3); ctx.fill();
         ctx.restore();
     }
 
-    // Задние фонари
     ctx.save();
     ctx.shadowColor = '#ff2222';
-    ctx.shadowBlur = w*0.3;
+    ctx.shadowBlur = w*0.4;
     ctx.fillStyle = '#ff2b2b';
-    roundRect(ctx, -tailW/2 + w*0.04, hh-h*0.06, w*0.18, h*0.04, 2); ctx.fill();
-    roundRect(ctx,  tailW/2 - w*0.04 - w*0.18, hh-h*0.06, w*0.18, h*0.04, 2); ctx.fill();
+    roundRect(ctx, -tailW/2 + w*0.04, hh-h*0.06, w*0.22, h*0.05, 2); ctx.fill();
+    roundRect(ctx,  tailW/2 - w*0.04 - w*0.22, hh-h*0.06, w*0.22, h*0.05, 2); ctx.fill();
     ctx.restore();
 
-    // Спойлер
     if (spoiler) {
         ctx.fillStyle = accentColor;
-        ctx.fillRect(-tailW/2*0.95, hh-h*0.02, tailW*0.95, h*0.05);
+        ctx.fillRect(-tailW/2*0.95, hh-h*0.035, tailW*0.95, h*0.05);
         ctx.fillStyle = neonColor;
-        ctx.fillRect(-tailW/2*0.95, hh-h*0.02, tailW*0.95, h*0.012);
+        ctx.fillRect(-tailW/2*0.95, hh-h*0.035, tailW*0.95, h*0.014);
     }
 
-    // Колёса (со стилями)
-    drawWheel(ctx, -tailW/2-w*0.02, -hh+h*0.12, w*0.07, h*0.14, wheelStyle);
-    drawWheel(ctx,  tailW/2+w*0.02, -hh+h*0.12, w*0.07, h*0.14, wheelStyle);
-    drawWheel(ctx, -tailW/2-w*0.02,  hh-h*0.20, w*0.08, h*0.16, wheelStyle);
-    drawWheel(ctx,  tailW/2+w*0.02,  hh-h*0.20, w*0.08, h*0.16, wheelStyle);
+    drawWheel(ctx, -tailW/2-w*0.015, -hh+h*0.14, w*0.085, h*0.15, wheelStyle);
+    drawWheel(ctx,  tailW/2+w*0.015, -hh+h*0.14, w*0.085, h*0.15, wheelStyle);
+    drawWheel(ctx, -tailW/2-w*0.015,  hh-h*0.22, w*0.095, h*0.17, wheelStyle);
+    drawWheel(ctx,  tailW/2+w*0.015,  hh-h*0.22, w*0.095, h*0.17, wheelStyle);
 
-    // Неоновая подсветка днища
     ctx.save();
     ctx.shadowColor = neonColor;
-    ctx.shadowBlur = w*0.4;
+    ctx.shadowBlur = w*0.5;
     ctx.strokeStyle = neonColor;
-    ctx.globalAlpha = 0.85;
-    ctx.lineWidth = Math.max(1, w*0.02);
+    ctx.lineWidth = Math.max(1, w*0.024);
     ctx.beginPath();
-    ctx.moveTo(-tailW/2, -hh+h*0.15); ctx.lineTo(-tailW/2, hh-h*0.15);
-    ctx.moveTo( tailW/2, -hh+h*0.15); ctx.lineTo( tailW/2, hh-h*0.15);
+    ctx.moveTo(-tailW/2, -hh+h*0.18); ctx.lineTo(-tailW/2, hh-h*0.18);
+    ctx.moveTo( tailW/2, -hh+h*0.18); ctx.lineTo( tailW/2, hh-h*0.18);
     ctx.stroke();
     ctx.restore();
+
+    ctx.globalAlpha = 1;
 }
 
 function drawWheel(ctx, x, y, w, h, style=0) {
     ctx.save();
     ctx.translate(x, y);
 
-    // Шина
     ctx.fillStyle = '#0a0a0a';
-    roundRect(ctx, -w/2, -h/2, w, h, w*0.3);
+    roundRect(ctx, -w/2, -h/2, w, h, Math.min(w,h)*0.35);
     ctx.fill();
 
-    // Диск по стилю
-    ctx.fillStyle = style === 2 ? '#ffd700' : style === 3 ? '#c0c0c0' : style === 4 ? '#ff3355' : '#666';
+    const tireGrad = ctx.createLinearGradient(-w/2, 0, w/2, 0);
+    tireGrad.addColorStop(0, 'rgba(50,50,50,0.6)');
+    tireGrad.addColorStop(0.5, 'rgba(0,0,0,0)');
+    tireGrad.addColorStop(1, 'rgba(0,0,0,0.7)');
+    ctx.fillStyle = tireGrad;
+    roundRect(ctx, -w/2, -h/2, w, h, Math.min(w,h)*0.35);
+    ctx.fill();
+
+    const r = Math.min(w, h) * 0.4;
+
     if (style === 0) {
-        // 5 спиц
-        roundRect(ctx, -w*0.15, -h*0.4, w*0.3, h*0.8, w*0.15); ctx.fill();
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+        g.addColorStop(0, '#ccc');
+        g.addColorStop(0.6, '#888');
+        g.addColorStop(1, '#444');
+        ctx.fillStyle = g;
+        for (let i = 0; i < 5; i++) {
+            ctx.save();
+            ctx.rotate(i * Math.PI * 2 / 5);
+            ctx.fillRect(-w*0.055, -h*0.42, w*0.11, h*0.42);
+            ctx.restore();
+        }
+        ctx.fillStyle = '#222';
+        ctx.beginPath();
+        ctx.arc(0, 0, r*0.3, 0, Math.PI*2);
+        ctx.fill();
     } else if (style === 1) {
-        // круглый диск
-        ctx.beginPath();
-        ctx.arc(0,0,Math.min(w,h)*0.32,0,Math.PI*2);
-        ctx.fill();
-    } else if (style === 2) {
-        // золотой
-        ctx.beginPath();
-        ctx.arc(0,0,Math.min(w,h)*0.35,0,Math.PI*2);
-        ctx.fill();
-    } else if (style === 3) {
-        // хром
-        const g = ctx.createLinearGradient(-w/2,0,w/2,0);
-        g.addColorStop(0,'#fff'); g.addColorStop(0.5,'#aaa'); g.addColorStop(1,'#666');
+        const g = ctx.createRadialGradient(-r*0.3, -r*0.3, 0, 0, 0, r);
+        g.addColorStop(0, '#e8e8e8');
+        g.addColorStop(0.6, '#999');
+        g.addColorStop(1, '#333');
         ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.arc(0,0,Math.min(w,h)*0.34,0,Math.PI*2);
+        ctx.arc(0, 0, r, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle = '#000';
+        for (let i = 0; i < 4; i++) {
+            ctx.save();
+            ctx.rotate(i * Math.PI / 2 + Math.PI/4);
+            ctx.fillRect(-w*0.045, -h*0.35, w*0.09, h*0.14);
+            ctx.restore();
+        }
+    } else if (style === 2) {
+        const g = ctx.createRadialGradient(-r*0.3, -r*0.3, 0, 0, 0, r);
+        g.addColorStop(0, '#fff8b0');
+        g.addColorStop(0.5, '#ffd700');
+        g.addColorStop(1, '#8b6914');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#fff8b0';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    } else if (style === 3) {
+        const g = ctx.createLinearGradient(-w/2, 0, w/2, 0);
+        g.addColorStop(0, '#fff');
+        g.addColorStop(0.4, '#888');
+        g.addColorStop(0.6, '#ddd');
+        g.addColorStop(1, '#444');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.beginPath();
+        ctx.arc(-r*0.3, -r*0.3, r*0.25, 0, Math.PI*2);
         ctx.fill();
     } else {
-        // спорт 3 спицы
-        ctx.fillStyle = '#111';
-        roundRect(ctx, -w*0.1, -h*0.42, w*0.2, h*0.84, 2); ctx.fill();
-        ctx.strokeStyle = '#ff3355';
-        ctx.lineWidth = 1.5;
+        ctx.fillStyle = '#0a0a0a';
         ctx.beginPath();
-        ctx.moveTo(-w*0.3,-h*0.2); ctx.lineTo(w*0.3,h*0.2);
-        ctx.moveTo(-w*0.3,h*0.2); ctx.lineTo(w*0.3,-h*0.2);
+        ctx.arc(0, 0, r, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ff3355';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(-w*0.32, -h*0.18); ctx.lineTo(w*0.32, h*0.18);
+        ctx.moveTo(-w*0.32,  h*0.18); ctx.lineTo(w*0.32, -h*0.18);
+        ctx.moveTo(0, -h*0.38);       ctx.lineTo(0, h*0.38);
         ctx.stroke();
+        ctx.fillStyle = '#ff3355';
+        ctx.beginPath();
+        ctx.arc(0, 0, r*0.18, 0, Math.PI*2);
+        ctx.fill();
     }
     ctx.restore();
 }
 
-/* ----- Утилиты ----- */
 function shade(hex, amt) {
     const c = hexToRgb(hex);
     return `rgb(${clamp(c.r+c.r*amt,0,255)|0},${clamp(c.g+c.g*amt,0,255)|0},${clamp(c.b+c.b*amt,0,255)|0})`;
@@ -343,11 +390,7 @@ function shade(hex, amt) {
 function hexToRgb(hex) {
     const h = hex.replace('#','');
     if (h.length === 3) {
-        return {
-            r: parseInt(h[0]+h[0],16),
-            g: parseInt(h[1]+h[1],16),
-            b: parseInt(h[2]+h[2],16)
-        };
+        return {r:parseInt(h[0]+h[0],16), g:parseInt(h[1]+h[1],16), b:parseInt(h[2]+h[2],16)};
     }
     return {
         r: parseInt(h.substring(0,2),16),
@@ -357,7 +400,7 @@ function hexToRgb(hex) {
 }
 function clamp(v,a,b){ return v<a?a:v>b?b:v; }
 function roundRect(ctx,x,y,w,h,r){
-    r = Math.min(r, w/2, h/2);
+    r = Math.min(r, Math.abs(w)/2, Math.abs(h)/2);
     ctx.beginPath();
     ctx.moveTo(x+r,y);
     ctx.lineTo(x+w-r,y);
