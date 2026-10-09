@@ -27,7 +27,13 @@ class GameAudio {
         if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
     }
 
-    /* --- Двигатель --- */
+    async ensureResumeAsync() {
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') {
+            try { await this.ctx.resume(); } catch {}
+        }
+    }
+
     startEngine() {
         if (!this.enabled || !this.ctx) return;
         this.stopEngine();
@@ -54,7 +60,7 @@ class GameAudio {
     }
 
     updateEngine(speed, maxSpeed) {
-        if (!this.engineOsc) return;
+        if (!this.engineOsc || !this.ctx) return;
         const t = Math.min(1, speed / maxSpeed);
         this.engineOsc.frequency.setTargetAtTime(60 + t*220, this.ctx.currentTime, 0.1);
         this.engineGain.gain.setTargetAtTime(this.enabled ? 0.05 + t*0.06 : 0, this.ctx.currentTime, 0.15);
@@ -70,7 +76,6 @@ class GameAudio {
         }
     }
 
-    /* --- Нитро (белый шум) --- */
     startNitro() {
         if (!this.enabled || !this.ctx || this.nitroNoise) return;
         const bufferSize = this.ctx.sampleRate * 0.5;
@@ -98,7 +103,7 @@ class GameAudio {
     }
 
     stopNitro() {
-        if (!this.nitroNoise) return;
+        if (!this.nitroNoise || !this.ctx) return;
         const n = this.nitroNoise;
         this.nitroGain.gain.setTargetAtTime(0, this.ctx.currentTime, 0.1);
         setTimeout(() => { try { n.stop(); } catch {} }, 300);
@@ -106,7 +111,6 @@ class GameAudio {
         this.nitroGain = null;
     }
 
-    /* --- Точечные эффекты --- */
     coin() {
         if (!this.enabled || !this.ctx) return;
         const o = this.ctx.createOscillator();
@@ -189,7 +193,6 @@ class GameAudio {
         });
     }
 
-    /* --- Музыка (простой секвенсор) --- */
     startMusic() {
         if (!this.musicOn || !this.ctx || this.musicTimer) return;
         const bass = [55, 55, 82.4, 73.4, 55, 55, 65.4, 73.4];
