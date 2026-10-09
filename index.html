@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#05060a">
-<title>NEON DRIFT 4D v4</title>
+<meta name="theme-color" content="#050810">
+<title>NEON DRIFT · GRAND PRIX</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,162 +12,170 @@
     <canvas id="gameCanvas"></canvas>
 
     <div id="hud" class="hidden">
-        <div class="hud-left">
-            <div class="stat">
-                <div class="stat-label">СКОРОСТЬ</div>
-                <div class="stat-value"><span id="speed">0</span><small>км/ч</small></div>
-                <div class="speed-bar"><div id="speedFill"></div></div>
+        <div class="hud-top">
+            <div class="hud-block">
+                <div class="hud-label">SPEED</div>
+                <div class="hud-big"><span id="speed">0</span><small>km/h</small></div>
+                <div class="bar"><div id="speedFill"></div></div>
             </div>
-            <div class="stat">
-                <div class="stat-label">НИТРО</div>
-                <div class="nitro-bar"><div id="nitroFill"></div></div>
+            <div class="hud-block hud-center">
+                <div class="hud-label">LAP</div>
+                <div class="hud-big" id="lap">1 / 3</div>
+                <div class="hud-sub" id="lapTime">00:00.00</div>
             </div>
-        </div>
-        <div class="hud-center">
-            <div class="score-display">
-                <div class="score-label">ОЧКИ</div>
-                <div id="score">0</div>
+            <div class="hud-block">
+                <div class="hud-label">POSITION</div>
+                <div class="hud-big" id="position">1<small>/6</small></div>
+                <div class="hud-sub" id="gap">+0.00s</div>
             </div>
-            <div id="combo" class="combo hidden">x<span id="comboValue">1</span></div>
-            <div id="driftInd" class="drift hidden">🔥 ДРИФТ</div>
-        </div>
-        <div class="hud-right">
-            <div class="stat small">
-                <div class="stat-label">УРОВЕНЬ</div>
-                <div class="stat-value" id="level">1</div>
+            <div class="hud-block">
+                <div class="hud-label">NITRO</div>
+                <div class="bar"><div id="nitroFill"></div></div>
+                <div class="hud-sub" id="tire">MEDIUM</div>
+                <button id="pauseBtn" class="icon-btn">❚❚</button>
             </div>
-            <div class="stat small">
-                <div class="stat-label">МОНЕТЫ</div>
-                <div class="stat-value" id="coins">0</div>
-            </div>
-            <div class="stat small">
-                <div class="stat-label">БИОМ</div>
-                <div class="stat-value tiny" id="biome">Неон-Сити</div>
-            </div>
-            <button id="pauseBtn" class="icon-btn">⏸</button>
         </div>
     </div>
 
+    <div id="countdown" class="countdown hidden"></div>
+
     <div id="touchControls" class="hidden">
         <div class="dpad">
-            <button class="ctrl-btn dpad-left"  data-key="left">◀</button>
-            <button class="ctrl-btn dpad-right" data-key="right">▶</button>
+            <button class="ctrl-btn dpad-left"  data-key="left"><svg viewBox="0 0 24 24" width="32" height="32"><path d="M15 4 L7 12 L15 20 Z" fill="currentColor"/></svg></button>
+            <button class="ctrl-btn dpad-right" data-key="right"><svg viewBox="0 0 24 24" width="32" height="32"><path d="M9 4 L17 12 L9 20 Z" fill="currentColor"/></svg></button>
         </div>
         <div class="pedals">
-            <button class="ctrl-btn nitro-btn" data-key="nitro">⚡<span>NITRO</span></button>
-            <button class="ctrl-btn pedal-brake" data-key="brake">⬇<span>ТОРМОЗ</span></button>
-            <button class="ctrl-btn pedal-gas"   data-key="gas">⬆<span>ГАЗ</span></button>
+            <button class="ctrl-btn nitro-btn" data-key="nitro">
+                <svg viewBox="0 0 24 24" width="26" height="26"><path d="M13 2 L4 14 H11 L10 22 L20 10 H13 Z" fill="currentColor"/></svg>
+                <span>NITRO</span>
+            </button>
+            <button class="ctrl-btn pedal-brake" data-key="brake">
+                <svg viewBox="0 0 24 24" width="26" height="26"><rect x="4" y="6" width="16" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <span>BRAKE</span>
+            </button>
+            <button class="ctrl-btn pedal-gas" data-key="gas">
+                <svg viewBox="0 0 24 24" width="30" height="30"><rect x="4" y="6" width="16" height="12" rx="3" fill="currentColor"/></svg>
+                <span>GAS</span>
+            </button>
         </div>
     </div>
 
     <div id="startScreen" class="overlay">
         <div class="screen-content">
-            <h1 class="logo">NEON <span>DRIFT</span> 4D</h1>
-            <p class="tagline">v4.0 · 50 машин · 4D-эффекты · сенсорное управление</p>
+            <header class="brand">
+                <div class="brand-mark">ND</div>
+                <div class="brand-text">
+                    <h1>NEON DRIFT</h1>
+                    <p>GRAND PRIX · v5.0</p>
+                </div>
+            </header>
 
-            <div class="tabs">
-                <button class="tab active" data-tab="garage">🚗 Гараж</button>
-                <button class="tab" data-tab="achv">🏆 Достижения</button>
-                <button class="tab" data-tab="stats">📊 Статистика</button>
-                <button class="tab" data-tab="settings">⚙️ Настройки</button>
-            </div>
+            <nav class="tabs">
+                <button class="tab active" data-tab="garage">GARAGE</button>
+                <button class="tab" data-tab="modes">RACE MODES</button>
+                <button class="tab" data-tab="achv">ACHIEVEMENTS</button>
+                <button class="tab" data-tab="stats">STATS</button>
+                <button class="tab" data-tab="settings">SETTINGS</button>
+            </nav>
 
             <div class="tab-panel active" id="tab-garage">
                 <div class="class-filter" id="classFilter"></div>
-                <div class="cars-grid" id="carsGrid"></div>
-                <div class="car-info" id="carInfo"></div>
-                <div class="custom-row" id="customRow">
-                    <div class="custom-block">
-                        <label>ЦВЕТ КУЗОВА</label>
-                        <div class="swatches" id="colorSwatches"></div>
-                    </div>
-                    <div class="custom-block">
-                        <label>ЦВЕТ НЕОНА</label>
-                        <div class="swatches" id="neonSwatches"></div>
-                    </div>
-                    <div class="custom-block">
-                        <label>СТИЛЬ ДИСКОВ</label>
-                        <div class="wheels" id="wheelPicks"></div>
+                <div class="garage-layout">
+                    <div class="cars-list" id="carsGrid"></div>
+                    <div class="car-showcase" id="carShowcase">
+                        <div class="showcase-stage">
+                            <canvas id="showcaseCanvas"></canvas>
+                            <div class="showcase-glow"></div>
+                        </div>
+                        <div class="showcase-info" id="carInfo"></div>
+                        <div class="showcase-custom" id="customRow">
+                            <div class="custom-block">
+                                <label>BODY</label>
+                                <div class="swatches" id="colorSwatches"></div>
+                            </div>
+                            <div class="custom-block">
+                                <label>NEON</label>
+                                <div class="swatches" id="neonSwatches"></div>
+                            </div>
+                            <div class="custom-block">
+                                <label>WHEELS</label>
+                                <div class="wheels" id="wheelPicks"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="tab-panel" id="tab-achv">
-                <div class="achv-grid" id="achvGrid"></div>
+            <div class="tab-panel" id="tab-modes">
+                <div class="modes-grid" id="modesGrid"></div>
+                <div class="modes-detail">
+                    <div class="mode-group">
+                        <h3>TRACK</h3>
+                        <div class="track-picker" id="trackPicker"></div>
+                    </div>
+                    <div class="mode-group">
+                        <h3>TIRE</h3>
+                        <div class="tire-picker" id="tirePicker"></div>
+                    </div>
+                </div>
             </div>
 
+            <div class="tab-panel" id="tab-achv"><div class="achv-grid" id="achvGrid"></div></div>
             <div class="tab-panel" id="tab-stats">
                 <div class="stats-grid" id="statsGrid"></div>
-                <button class="secondary-btn" id="resetStats">Сбросить статистику</button>
+                <button class="btn-ghost" id="resetStats">RESET STATS</button>
             </div>
-
             <div class="tab-panel" id="tab-settings">
                 <div class="settings-list">
-                    <label class="setting">
-                        <input type="checkbox" id="soundOn" checked>
-                        <span>Звук включён</span>
-                    </label>
-                    <label class="setting">
-                        <span>Громкость</span>
-                        <input type="range" id="volume" min="0" max="100" value="60">
-                    </label>
-                    <label class="setting">
-                        <input type="checkbox" id="musicOn" checked>
-                        <span>Фоновая музыка</span>
-                    </label>
-                    <label class="setting">
-                        <input type="checkbox" id="ghostOn" checked>
-                        <span>Призрак рекорда</span>
-                    </label>
-                    <label class="setting">
-                        <input type="checkbox" id="touchOn" checked>
-                        <span>Экранные кнопки (для телефона)</span>
-                    </label>
-                    <label class="setting">
-                        <input type="checkbox" id="shakeOn" checked>
-                        <span>Вибрация</span>
-                    </label>
+                    <label class="setting"><input type="checkbox" id="soundOn" checked><span>Sound</span></label>
+                    <label class="setting"><span>Volume</span><input type="range" id="volume" min="0" max="100" value="60"></label>
+                    <label class="setting"><input type="checkbox" id="musicOn" checked><span>Music</span></label>
+                    <label class="setting"><input type="checkbox" id="ghostOn" checked><span>Ghost replay</span></label>
+                    <label class="setting"><input type="checkbox" id="touchOn" checked><span>Touch controls</span></label>
+                    <label class="setting"><input type="checkbox" id="shakeOn" checked><span>Vibration</span></label>
                 </div>
             </div>
 
-            <div class="controls-info">
-                <div class="ctrl"><kbd>←</kbd><kbd>→</kbd><span>руль</span></div>
-                <div class="ctrl"><kbd>↑</kbd><span>газ</span></div>
-                <div class="ctrl"><kbd>↓</kbd><span>тормоз</span></div>
-                <div class="ctrl"><kbd>SHIFT</kbd><span>нитро</span></div>
-                <div class="ctrl"><kbd>SPACE</kbd><span>пауза</span></div>
-            </div>
-
-            <button id="startBtn" class="primary-btn">🏁 СТАРТ</button>
+            <footer class="start-footer">
+                <div class="controls-hint">
+                    <span><kbd>←</kbd><kbd>→</kbd> steering</span>
+                    <span><kbd>↑</kbd> throttle</span>
+                    <span><kbd>↓</kbd> brake</span>
+                    <span><kbd>SHIFT</kbd> nitro</span>
+                    <span><kbd>SPACE</kbd> pause</span>
+                </div>
+                <button id="startBtn" class="btn-primary">START RACE</button>
+            </footer>
         </div>
     </div>
 
     <div id="gameOverScreen" class="overlay hidden">
-        <div class="screen-content">
-            <h1 class="crash-title">АВАРИЯ</h1>
-            <div class="results">
-                <div class="result-item"><div class="result-label">ОЧКИ</div><div class="result-value" id="finalScore">0</div></div>
-                <div class="result-item"><div class="result-label">МОНЕТЫ</div><div class="result-value" id="finalCoins">0</div></div>
-                <div class="result-item"><div class="result-label">ДИСТ.</div><div class="result-value"><span id="finalDist">0</span>м</div></div>
-                <div class="result-item"><div class="result-label">МАКС. КОМБО</div><div class="result-value">x<span id="finalCombo">1</span></div></div>
-            </div>
-            <div id="newRecord" class="new-record hidden">🏆 НОВЫЙ РЕКОРД!</div>
+        <div class="screen-content narrow">
+            <h1 class="title-fail" id="raceResultTitle">RACE FINISHED</h1>
+            <div class="results" id="resultsGrid"></div>
+            <div id="newRecord" class="new-record hidden">NEW RECORD</div>
             <div id="achvToast" class="achv-toast hidden"></div>
-            <button id="restartBtn" class="primary-btn">ЕЩЁ РАЗ</button>
-            <button id="menuBtn" class="secondary-btn">В ГАРАЖ</button>
+            <div class="result-actions">
+                <button id="restartBtn" class="btn-primary">RESTART</button>
+                <button id="menuBtn" class="btn-ghost">GARAGE</button>
+            </div>
         </div>
     </div>
 
     <div id="pauseScreen" class="overlay hidden">
-        <div class="screen-content">
-            <h1 class="pause-title">ПАУЗА</h1>
-            <button id="resumeBtn" class="primary-btn">ПРОДОЛЖИТЬ</button>
-            <button id="quitBtn" class="secondary-btn">ВЫЙТИ В МЕНЮ</button>
+        <div class="screen-content narrow">
+            <h1 class="title-pause">PAUSED</h1>
+            <div class="result-actions">
+                <button id="resumeBtn" class="btn-primary">RESUME</button>
+                <button id="quitBtn" class="btn-ghost">EXIT TO GARAGE</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="cars.js"></script>
+<script src="physics.js"></script>
+<script src="tracks.js"></script>
 <script src="audio.js"></script>
 <script src="game.js"></script>
 </body>
