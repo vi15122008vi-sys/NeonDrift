@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>NEON DRIFT 4D v3</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- ============ HUD ============ -->
+    <div id="hud" class="hidden">
+        <div class="hud-left">
+            <div class="stat">
+                <div class="stat-label">СКОРОСТЬ</div>
+                <div class="stat-value"><span id="speed">0</span><small>км/ч</small></div>
+                <div class="speed-bar"><div id="speedFill"></div></div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">НИТРО</div>
+                <div class="nitro-bar"><div id="nitroFill"></div></div>
+            </div>
+        </div>
+        <div class="hud-center">
+            <div class="score-display">
+                <div class="score-label">ОЧКИ</div>
+                <div id="score">0</div>
+            </div>
+            <div id="combo" class="combo hidden">x<span id="comboValue">1</span></div>
+            <div id="driftInd" class="drift hidden">🔥 ДРИФТ</div>
+        </div>
+        <div class="hud-right">
+            <div class="stat small">
+                <div class="stat-label">УРОВЕНЬ</div>
+                <div class="stat-value" id="level">1</div>
+            </div>
+            <div class="stat small">
+                <div class="stat-label">МОНЕТЫ</div>
+                <div class="stat-value" id="coins">0</div>
+            </div>
+            <div class="stat small">
+                <div class="stat-label">БИОМ</div>
+                <div class="stat-value tiny" id="biome">Неон-Сити</div>
+            </div>
+            <button id="pauseBtn" class="icon-btn">⏸</button>
+        </div>
+    </div>
+
+    <!-- ============ START / GARAGE ============ -->
+    <div id="startScreen" class="overlay">
+        <div class="screen-content">
+            <h1 class="logo">NEON <span>DRIFT</span> 4D</h1>
+            <p class="tagline">v3.0 · 50 машин · достижения · мультиплеер</p>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="garage">🚗 Гараж</button>
+                <button class="tab" data-tab="achv">🏆 Достижения</button>
+                <button class="tab" data-tab="stats">📊 Статистика</button>
+                <button class="tab" data-tab="settings">⚙️ Настройки</button>
+            </div>
+
+            <!-- TAB: гараж -->
+            <div class="tab-panel active" id="tab-garage">
+                <div class="class-filter" id="classFilter"></div>
+                <div class="cars-grid" id="carsGrid"></div>
+                <div class="car-info" id="carInfo"></div>
+                <div class="custom-row" id="customRow">
+                    <div class="custom-block">
+                        <label>ЦВЕТ</label>
+                        <div class="swatches" id="colorSwatches"></div>
+                    </div>
+                    <div class="custom-block">
+                        <label>НЕОН</label>
+                        <div class="swatches" id="neonSwatches"></div>
+                    </div>
+                    <div class="custom-block">
+                        <label>ДИСКИ</label>
+                        <div class="wheels" id="wheelPicks"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: достижения -->
+            <div class="tab-panel" id="tab-achv">
+                <div class="achv-grid" id="achvGrid"></div>
+            </div>
+
+            <!-- TAB: статистика -->
+            <div class="tab-panel" id="tab-stats">
+                <div class="stats-grid" id="statsGrid"></div>
+                <button class="secondary-btn" id="resetStats">Сбросить статистику</button>
+            </div>
+
+            <!-- TAB: настройки -->
+            <div class="tab-panel" id="tab-settings">
+                <div class="settings-list">
+                    <label class="setting">
+                        <input type="checkbox" id="soundOn" checked>
+                        <span>Звук включён</span>
+                    </label>
+                    <label class="setting">
+                        <span>Громкость</span>
+                        <input type="range" id="volume" min="0" max="100" value="60">
+                    </label>
+                    <label class="setting">
+                        <input type="checkbox" id="musicOn" checked>
+                        <span>Фоновая музыка</span>
+                    </label>
+                    <label class="setting">
+                        <input type="checkbox" id="ghostOn" checked>
+                        <span>Призрак рекорда</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="controls-info">
+                <div class="ctrl"><kbd>←</kbd><kbd>→</kbd><span>руль</span></div>
+                <div class="ctrl"><kbd>↑</kbd><span>газ</span></div>
+                <div class="ctrl"><kbd>↓</kbd><span>тормоз</span></div>
+                <div class="ctrl"><kbd>SHIFT</kbd><span>нитро</span></div>
+                <div class="ctrl"><kbd>SPACE</kbd><span>пауза</span></div>
+            </div>
+
+            <button id="startBtn" class="primary-btn">🏁 СТАРТ</button>
+        </div>
+    </div>
+
+    <!-- ============ GAME OVER ============ -->
+    <div id="gameOverScreen" class="overlay hidden">
+        <div class="screen-content">
+            <h1 class="crash-title">АВАРИЯ</h1>
+            <div class="results">
+                <div class="result-item"><div class="result-label">ОЧКИ</div><div class="result-value" id="finalScore">0</div></div>
+                <div class="result-item"><div class="result-label">МОНЕТЫ</div><div class="result-value" id="finalCoins">0</div></div>
+                <div class="result-item"><div class="result-label">ДИСТ.</div><div class="result-value"><span id="finalDist">0</span>м</div></div>
+                <div class="result-item"><div class="result-label">МАКС. КОМБО</div><div class="result-value">x<span id="finalCombo">1</span></div></div>
+            </div>
+            <div id="newRecord" class="new-record hidden">🏆 НОВЫЙ РЕКОРД!</div>
+            <div id="achvToast" class="achv-toast hidden"></div>
+            <button id="restartBtn" class="primary-btn">ЕЩЁ РАЗ</button>
+            <button id="menuBtn" class="secondary-btn">В ГАРАЖ</button>
+        </div>
+    </div>
+
+    <!-- ============ PAUSE ============ -->
+    <div id="pauseScreen" class="overlay hidden">
+        <div class="screen-content">
+            <h1 class="pause-title">ПАУЗА</h1>
+            <button id="resumeBtn" class="primary-btn">ПРОДОЛЖИТЬ</button>
+            <button id="quitBtn" class="secondary-btn">ВЫЙТИ В МЕНЮ</button>
+        </div>
+    </div>
+</div>
+
+<script src="cars.js"></script>
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
