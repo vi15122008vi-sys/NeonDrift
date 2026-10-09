@@ -2,15 +2,15 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>NEON DRIFT 4D v3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#05060a">
+<title>NEON DRIFT 4D v4</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
     <canvas id="gameCanvas"></canvas>
 
-    <!-- ============ HUD ============ -->
     <div id="hud" class="hidden">
         <div class="hud-left">
             <div class="stat">
@@ -48,11 +48,22 @@
         </div>
     </div>
 
-    <!-- ============ START / GARAGE ============ -->
+    <div id="touchControls" class="hidden">
+        <div class="dpad">
+            <button class="ctrl-btn dpad-left"  data-key="left">◀</button>
+            <button class="ctrl-btn dpad-right" data-key="right">▶</button>
+        </div>
+        <div class="pedals">
+            <button class="ctrl-btn nitro-btn" data-key="nitro">⚡<span>NITRO</span></button>
+            <button class="ctrl-btn pedal-brake" data-key="brake">⬇<span>ТОРМОЗ</span></button>
+            <button class="ctrl-btn pedal-gas"   data-key="gas">⬆<span>ГАЗ</span></button>
+        </div>
+    </div>
+
     <div id="startScreen" class="overlay">
         <div class="screen-content">
             <h1 class="logo">NEON <span>DRIFT</span> 4D</h1>
-            <p class="tagline">v3.0 · 50 машин · достижения · мультиплеер</p>
+            <p class="tagline">v4.0 · 50 машин · 4D-эффекты · сенсорное управление</p>
 
             <div class="tabs">
                 <button class="tab active" data-tab="garage">🚗 Гараж</button>
@@ -61,39 +72,35 @@
                 <button class="tab" data-tab="settings">⚙️ Настройки</button>
             </div>
 
-            <!-- TAB: гараж -->
             <div class="tab-panel active" id="tab-garage">
                 <div class="class-filter" id="classFilter"></div>
                 <div class="cars-grid" id="carsGrid"></div>
                 <div class="car-info" id="carInfo"></div>
                 <div class="custom-row" id="customRow">
                     <div class="custom-block">
-                        <label>ЦВЕТ</label>
+                        <label>ЦВЕТ КУЗОВА</label>
                         <div class="swatches" id="colorSwatches"></div>
                     </div>
                     <div class="custom-block">
-                        <label>НЕОН</label>
+                        <label>ЦВЕТ НЕОНА</label>
                         <div class="swatches" id="neonSwatches"></div>
                     </div>
                     <div class="custom-block">
-                        <label>ДИСКИ</label>
+                        <label>СТИЛЬ ДИСКОВ</label>
                         <div class="wheels" id="wheelPicks"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB: достижения -->
             <div class="tab-panel" id="tab-achv">
                 <div class="achv-grid" id="achvGrid"></div>
             </div>
 
-            <!-- TAB: статистика -->
             <div class="tab-panel" id="tab-stats">
                 <div class="stats-grid" id="statsGrid"></div>
                 <button class="secondary-btn" id="resetStats">Сбросить статистику</button>
             </div>
 
-            <!-- TAB: настройки -->
             <div class="tab-panel" id="tab-settings">
                 <div class="settings-list">
                     <label class="setting">
@@ -112,6 +119,14 @@
                         <input type="checkbox" id="ghostOn" checked>
                         <span>Призрак рекорда</span>
                     </label>
+                    <label class="setting">
+                        <input type="checkbox" id="touchOn" checked>
+                        <span>Экранные кнопки (для телефона)</span>
+                    </label>
+                    <label class="setting">
+                        <input type="checkbox" id="shakeOn" checked>
+                        <span>Вибрация</span>
+                    </label>
                 </div>
             </div>
 
@@ -127,7 +142,6 @@
         </div>
     </div>
 
-    <!-- ============ GAME OVER ============ -->
     <div id="gameOverScreen" class="overlay hidden">
         <div class="screen-content">
             <h1 class="crash-title">АВАРИЯ</h1>
@@ -144,7 +158,6 @@
         </div>
     </div>
 
-    <!-- ============ PAUSE ============ -->
     <div id="pauseScreen" class="overlay hidden">
         <div class="screen-content">
             <h1 class="pause-title">ПАУЗА</h1>
