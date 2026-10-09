@@ -34,6 +34,7 @@ class GameAudio {
         }
     }
 
+    /* ===== Двигатель ===== */
     startEngine() {
         if (!this.enabled || !this.ctx) return;
         this.stopEngine();
@@ -61,10 +62,10 @@ class GameAudio {
 
     updateEngine(speed, maxSpeed) {
         if (!this.engineOsc || !this.ctx) return;
-        const t = Math.min(1, speed / maxSpeed);
-        this.engineOsc.frequency.setTargetAtTime(60 + t*220, this.ctx.currentTime, 0.1);
-        this.engineGain.gain.setTargetAtTime(this.enabled ? 0.05 + t*0.06 : 0, this.ctx.currentTime, 0.15);
-        this.engineFilter.frequency.setTargetAtTime(400 + t*1800, this.ctx.currentTime, 0.15);
+        const t = Math.min(1, speed / Math.max(maxSpeed, 0.01));
+        this.engineOsc.frequency.setTargetAtTime(60 + t * 220, this.ctx.currentTime, 0.1);
+        this.engineGain.gain.setTargetAtTime(this.enabled ? 0.05 + t * 0.06 : 0, this.ctx.currentTime, 0.15);
+        this.engineFilter.frequency.setTargetAtTime(400 + t * 1800, this.ctx.currentTime, 0.15);
     }
 
     stopEngine() {
@@ -76,12 +77,13 @@ class GameAudio {
         }
     }
 
+    /* ===== Нитро (белый шум через bandpass) ===== */
     startNitro() {
         if (!this.enabled || !this.ctx || this.nitroNoise) return;
         const bufferSize = this.ctx.sampleRate * 0.5;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random()*2-1);
+        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1);
 
         const noise = this.ctx.createBufferSource();
         noise.buffer = buffer;
@@ -96,8 +98,11 @@ class GameAudio {
         gain.gain.value = 0;
         gain.gain.setTargetAtTime(0.18 * this.volume, this.ctx.currentTime, 0.05);
 
-        noise.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
         noise.start();
+
         this.nitroNoise = noise;
         this.nitroGain = gain;
     }
@@ -111,29 +116,34 @@ class GameAudio {
         this.nitroGain = null;
     }
 
+    /* ===== Монета ===== */
     coin() {
         if (!this.enabled || !this.ctx) return;
         const o = this.ctx.createOscillator();
         o.type = 'square';
         const g = this.ctx.createGain();
-        o.connect(g); g.connect(this.ctx.destination);
+        o.connect(g);
+        g.connect(this.ctx.destination);
         const t = this.ctx.currentTime;
         o.frequency.setValueAtTime(880, t);
         o.frequency.setValueAtTime(1320, t + 0.06);
         g.gain.setValueAtTime(0.12 * this.volume, t);
         g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-        o.start(t); o.stop(t + 0.15);
+        o.start(t);
+        o.stop(t + 0.15);
     }
 
+    /* ===== Взрыв ===== */
     crash() {
         if (!this.enabled || !this.ctx) return;
         const bufferSize = this.ctx.sampleRate * 1.0;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random()*2-1) * (1 - i/bufferSize);
+        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
 
         const noise = this.ctx.createBufferSource();
         noise.buffer = buffer;
+
         const filter = this.ctx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(2000, this.ctx.currentTime);
@@ -143,10 +153,13 @@ class GameAudio {
         gain.gain.setValueAtTime(0.5 * this.volume, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.9);
 
-        noise.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
         noise.start();
     }
 
+    /* ===== Клик UI ===== */
     click() {
         if (!this.enabled || !this.ctx) return;
         const o = this.ctx.createOscillator();
@@ -157,10 +170,13 @@ class GameAudio {
         o.frequency.exponentialRampToValueAtTime(300, t + 0.06);
         g.gain.setValueAtTime(0.08 * this.volume, t);
         g.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
-        o.connect(g); g.connect(this.ctx.destination);
-        o.start(t); o.stop(t + 0.08);
+        o.connect(g);
+        g.connect(this.ctx.destination);
+        o.start(t);
+        o.stop(t + 0.08);
     }
 
+    /* ===== Достижение / уровень ===== */
     levelUp() {
         if (!this.enabled || !this.ctx) return;
         const notes = [523, 659, 784, 1046];
@@ -172,11 +188,14 @@ class GameAudio {
             const t = this.ctx.currentTime + i * 0.08;
             g.gain.setValueAtTime(0.12 * this.volume, t);
             g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
-            o.connect(g); g.connect(this.ctx.destination);
-            o.start(t); o.stop(t + 0.25);
+            o.connect(g);
+            g.connect(this.ctx.destination);
+            o.start(t);
+            o.stop(t + 0.25);
         });
     }
 
+    /* ===== Покупка ===== */
     purchase() {
         if (!this.enabled || !this.ctx) return;
         const notes = [523, 784, 1046];
@@ -188,11 +207,14 @@ class GameAudio {
             const t = this.ctx.currentTime + i * 0.09;
             g.gain.setValueAtTime(0.15 * this.volume, t);
             g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
-            o.connect(g); g.connect(this.ctx.destination);
-            o.start(t); o.stop(t + 0.3);
+            o.connect(g);
+            g.connect(this.ctx.destination);
+            o.start(t);
+            o.stop(t + 0.3);
         });
     }
 
+    /* ===== Фоновая музыка (простой секвенсор) ===== */
     startMusic() {
         if (!this.musicOn || !this.ctx || this.musicTimer) return;
         const bass = [55, 55, 82.4, 73.4, 55, 55, 65.4, 73.4];
@@ -206,8 +228,10 @@ class GameAudio {
             const t = this.ctx.currentTime;
             g.gain.setValueAtTime(0.06 * this.volume, t);
             g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
-            o.connect(g); g.connect(this.ctx.destination);
-            o.start(t); o.stop(t + 0.4);
+            o.connect(g);
+            g.connect(this.ctx.destination);
+            o.start(t);
+            o.stop(t + 0.4);
             i++;
         };
         playBeat();
@@ -219,9 +243,14 @@ class GameAudio {
     }
 
     setVolume(v) { this.volume = v; }
+
     setEnabled(v) {
         this.enabled = v;
-        if (!v) { this.stopEngine(); this.stopNitro(); this.stopMusic(); }
+        if (!v) {
+            this.stopEngine();
+            this.stopNitro();
+            this.stopMusic();
+        }
     }
 }
 
